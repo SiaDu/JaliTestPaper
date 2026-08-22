@@ -1,1 +1,148 @@
 \section{System}
+
+We implemented a prototype authoring system that operationalizes the design goals described in Section~3. The system separates narrative interpretation from animation execution through the \textit{Performance Plan}. Rather than asking the language model to directly manipulate animation controls, the system first converts conversational context into a structured set of semantic performance decisions. These decisions are exposed to the animator for inspection and revision before being deterministically mapped to JALI and Maya controls.
+
+The system consists of five main components: 
+(1) a Context Builder that structures screenplay and conversational information;
+(2) an LLM-based Performance Interpreter;
+(3) the editable Performance Plan;
+(4) an authoring interface for inspecting and revising proposed decisions; and
+(5) a JALI--Maya execution layer that translates approved semantic decisions into facial animation.
+
+% TODO: Replace with final system figure.
+% \begin{figure*}[t]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/system_overview.pdf}
+%     \caption{System overview. Conversational context is structured by the
+%     Context Builder and interpreted by an LLM into an editable Performance
+%     Plan. Animators inspect and revise the plan before approved decisions are
+%     mapped to JALI and Maya controls.}
+%     \label{fig:system-overview}
+% \end{figure*}
+
+
+\subsection{System Architecture}
+
+The workflow begins with a conversational scene containing dialogue, character information, and optional scene-level context. The animator selects one character as the current \textit{target character}. Information from both characters is retained in the context representation, but the system generates a Performance Plan only for the selected target.
+
+The Context Builder converts the source material into a structured context package. This package is provided to the LLM-based Performance Interpreter, which generates a sequence of performance events conforming to the schema introduced in Section~3.4. The generated Performance Plan is then displayed in the authoring interface, where the animator can inspect, modify, accept, lock, or selectively regenerate individual decisions.
+
+Only after this authoring stage is the plan passed to the execution layer. The execution layer maps semantic decisions such as affect, gaze target, gaze timing, head involvement, and blink behavior onto the corresponding JALI and Maya controls. Speech animation remains handled by JALI, while our system controls the higher-level performance configuration surrounding the speech animation \cite{edwards2016jali}.
+
+This separation creates a clear boundary between \textit{interpretation} and \textit{execution}. The LLM operates only on semantic performance variables, whereas low-level rig manipulation is handled by deterministic system logic.
+
+
+\subsection{Context Builder}
+
+The Context Builder transforms screenplay-level information into a representation designed to preserve conversational relationships while avoiding an unconstrained full-scene prompt. For each authoring request, the context package contains:
+
+\begin{itemize}
+    \item the target character;
+    \item the interlocutor and character identifiers;
+    \item ordered dialogue turns with explicit speaker and addressee labels;
+    \item the current target utterance;
+    \item preceding conversational context;
+    \item a short description of the relationship between the characters;
+    \item relevant scene or narrative information; and
+    \item previously approved performance decisions, when regenerating part of an existing plan.
+\end{itemize}
+
+Dialogue turns are represented explicitly rather than supplied as an unstructured transcript. This allows references such as \texttt{speaker}, \texttt{addressee}, and gaze targets to retain stable character identities throughout the pipeline. For example, a gaze decision is represented as targeting \texttt{character\_A}, \texttt{character\_B}, an external object, or an away state, rather than as a screen-space direction such as ``left'' or ``right.''
+
+The context package separates information used for interpretation from information used for execution. Narrative descriptions and relationships can influence the LLM's proposed acting choices, whereas geometric information such as the location of a gaze target is resolved later by the Maya execution layer. This prevents the language model from having to reason directly about rig coordinates or controller values.
+
+
+\subsection{LLM-Based Performance Interpretation}
+
+The Performance Interpreter receives the structured context package together with the Performance Plan schema. We use \textbf{[MODEL NAME AND VERSION]} through \textbf{[API / LOCAL INFERENCE METHOD]}, with \textbf{[temperature / decoding configuration]}. No task-specific model training or fine-tuning is performed.
+
+The model is instructed to act as a performance-planning assistant rather than an autonomous animator. Its task is to infer a plausible interpretation of the target character and express that interpretation through the constrained fields of the Performance Plan. It is explicitly instructed not to output Maya commands, animation curves, joint rotations, or other rig-specific parameters.
+
+For each proposed event, the model outputs:
+
+\begin{itemize}
+    \item an event identifier and temporal reference;
+    \item communicative intent;
+    \item affect and intensity;
+    \item gaze target and gaze behavior;
+    \item gaze onset and duration;
+    \item avoidance or re-engagement where applicable;
+    \item head involvement;
+    \item optional blink behavior;
+    \item a concise rationale; and
+    \item supporting dialogue or contextual evidence.
+\end{itemize}
+
+Outputs are requested in a structured JSON representation and validated against the system schema before being presented to the animator. Invalid enum values, missing required fields, and unresolved character identifiers are rejected by the validator. \textbf{[If implemented: malformed outputs are automatically returned to the model for schema repair; otherwise replace this sentence with the actual handling method.]}
+
+The rationale field is deliberately constrained to a short, user-facing explanation grounded in observable scene information. It is not intended to expose the model's internal reasoning process. For example, the system may state that a character ``avoids eye contact after denying the accusation'' and cite the relevant dialogue turn. The purpose is to expose the interpretation that produced the proposed performance choice so that the animator can decide whether that interpretation is useful.
+
+
+\subsection{Authoring Interface}
+
+The interface organizes the workflow around the relationship between dialogue, semantic performance decisions, and the resulting animation. It contains four primary regions: a dialogue view, a performance timeline, a Performance Plan inspector, and an animation preview.
+
+The \textit{dialogue view} presents the scene as ordered conversational turns with explicit speaker labels. Selecting a line highlights the performance events associated with that region of the conversation and provides local context for interpreting the proposed behavior.
+
+The \textit{performance timeline} visualizes semantic events relative to the dialogue. Separate tracks are used for gaze, affect, head involvement, and other supported behaviors. This allows the animator to inspect, for example, when gaze leaves the interlocutor, how long an avoidance event persists, and when re-engagement occurs relative to a subsequent line.
+
+The \textit{Performance Plan inspector} exposes the semantic fields associated with a selected event. Categorical variables such as gaze target and affect are edited through constrained controls, while continuous or ordinal parameters such as intensity and head involvement can be adjusted independently. The associated rationale and supporting contextual evidence are displayed alongside these controls.
+
+The \textit{preview} provides access to the current Maya animation so that semantic revisions can be assessed in motion. The animator can therefore move repeatedly between interpretation-level editing and visual evaluation without having to reconstruct the intended performance through low-level rig controls.
+
+
+\subsection{Mixed-Initiative Editing and Selective Regeneration}
+
+The interface treats each generated performance decision as a proposal rather than a committed result. An animator may accept an event unchanged, modify one or more of its fields, reject the event, or request a new suggestion.
+
+Individual fields can also be \textit{locked}. Locked values are included as constraints during subsequent regeneration and cannot be overwritten by the model. This allows the animator to preserve satisfactory decisions while requesting alternatives for unresolved aspects of the performance.
+
+For example, an animator may agree that a character should avoid eye contact but disagree with the proposed duration. The gaze target and avoidance state can be locked while only the timing is regenerated. Similarly, the animator may preserve an expression while requesting a different gaze interpretation.
+
+Selective regeneration therefore operates over a partially specified Performance Plan rather than restarting the full generation process. The Context Builder passes both the original scene context and the animator-approved constraints back to the Performance Interpreter. The model is asked to regenerate only the editable fields while maintaining all locked decisions.
+
+The system logs generation, acceptance, rejection, modification, locking, and regeneration operations. These interaction records are subsequently used in the evaluation to examine how animators negotiate AI-generated performance interpretations.
+
+
+\subsection{Mapping the Performance Plan to JALI and Maya}
+
+The final stage translates an approved Performance Plan into executable animation controls. We use JALI as the procedural facial-animation backend within Autodesk Maya \cite{edwards2016jali}. JALI generates speech animation from the character's dialogue and audio, while our mapper configures additional expressive and conversational behaviors around this speech animation.
+
+The mapper deliberately separates semantic variables from implementation-specific controls. Table~\ref{tab:jiali-mapping} summarizes the principal mapping used by the prototype.
+
+\begin{table}[t]
+    \centering
+    \caption{Mapping from Performance Plan semantics to the animation backend.}
+    \label{tab:jiali-mapping}
+    \begin{tabular}{p{0.27\columnwidth} p{0.63\columnwidth}}
+        \toprule
+        \textbf{Performance field} & \textbf{Execution} \\
+        \midrule
+
+        Affect / intensity &
+        JALI expression and paralingual configuration; expression tags or corresponding facial controls. \\
+
+        Gaze target &
+        Character-relative or scene-relative look target resolved to the character's eye/look-at controls in Maya. \\
+
+        Gaze timing &
+        Timeline intervals controlling transitions between conversational target, avoidance, and re-engagement. \\
+
+        Head involvement &
+        Neck/head participation applied through the available JALI/jRig or Maya head controls. \\
+
+        Blink behavior &
+        JALI blink generation and, where required, event-specific eyelid adjustments. \\
+
+        Speech &
+        JALI speech animation generated from the aligned dialogue and audio. \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+JALI exposes procedural controls for speech-synchronized blinking, ambient gaze, paralingual facial behavior, and facial expression, while its rigging framework provides eye/look-at and optional neck controls. These controls allow the mapper to instantiate an approved semantic plan without requiring the LLM to generate animation curves directly.
+
+The integration is implemented through \textbf{[MEL / Python / Maya commands---replace with final implementation]}. JALI parameters can be changed programmatically after creation of the jSync node, allowing the system to regenerate animation after semantic edits while preserving the Performance Plan as the authoritative representation of the animator's decisions.
+
+After execution, the generated animation remains editable through the standard Maya/JALI workflow. This is important because the Performance Plan is intended to support higher-level performance authoring rather than replace conventional animation refinement. Animators may therefore continue to adjust the resulting animation at the rig or curve level after committing the semantic plan.

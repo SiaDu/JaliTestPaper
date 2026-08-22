@@ -1,1 +1,100 @@
-\section{Design}
+\section{Designing for Editable Performance Interpretation}
+
+\subsection{Formative Study}
+
+To ground the system in existing character-animation practice, we conducted semi-structured interviews with \textbf{[N]} participants with experience in character or facial animation. Participants had between \textbf{[X--Y]} years of animation experience and included \textbf{[professional animators / animation students / technical animators / other relevant roles]}. Each interview lasted approximately \textbf{[XX]} minutes and was conducted \textbf{[remotely / in person]}.
+
+The interviews focused on three aspects of conversational performance authoring: 
+(1) how animators interpret dialogue and scene context before making animation decisions;
+(2) how they decide gaze, expression, head involvement, and timing during dialogue; and
+(3) where AI assistance could be useful without reducing creative control.
+Participants were also asked to describe situations in which an automatically generated performance might be technically plausible but inconsistent with their interpretation of the scene.
+
+Interview transcripts were reviewed using an inductive thematic analysis. We iteratively grouped recurring observations concerning contextual interpretation, semantic control, revision behavior, and the role of explanations in AI-assisted authoring. The resulting themes informed four design goals for our system.
+
+
+\subsection{Findings and Design Goals}
+
+\subsubsection{Performance decisions depend on context beyond the current utterance}
+
+Participants described conversational animation as an interpretive process rather than a direct mapping from dialogue to emotion. Decisions about eye contact, avoidance, reaction, and expression could depend on preceding dialogue, character relationships, the current speaker and addressee, and information known from earlier in the scene. The same spoken line could therefore support substantially different performances under different narrative conditions.
+
+\textbf{DG1: Represent conversational and narrative context explicitly.}
+The system should reason over information beyond the target utterance, including dialogue turns, speaker and addressee identities, preceding interaction, character relationships, and the current target character.
+
+
+\subsubsection{Animators reason in performance concepts before manipulating controls}
+
+Participants often described performance choices using semantic concepts such as ``avoiding eye contact,'' ``holding back a reaction,'' ``challenging the other character,'' or ``looking back after being confronted,'' rather than directly referring to controller values or animation curves. Low-level controls were used to realize these decisions, but were not necessarily the level at which the performance was initially conceived.
+
+\textbf{DG2: Expose performance decisions at an animator-meaningful semantic level.}
+The interface should represent intent, affect, gaze behavior, timing, and head involvement before translating them into low-level animation parameters. This representation should remain sufficiently structured to support deterministic mapping to animation controls.
+
+
+\subsubsection{AI suggestions should remain locally revisable}
+
+Participants did not expect an automatically generated performance to constitute a final acting choice. A generated result could contain useful and undesirable decisions simultaneously: an animator might retain an expression while changing its gaze target, preserve a gaze event while adjusting its timing, or reject the inferred intention while keeping other parts of the animation.
+
+\textbf{DG3: Support localized editing while preserving satisfactory decisions.}
+Users should be able to edit individual performance attributes, accept or reject suggestions, lock decisions that should remain unchanged, and selectively regenerate only unresolved parts of the performance. This follows a mixed-initiative model in which generation provides a starting point rather than replacing iterative authoring \cite{shi2024piet}.
+
+
+\subsubsection{Understanding the interpretation is more useful than opaque generation}
+
+Participants expressed a distinction between an animation that ``looks wrong'' and an animation generated from a mistaken interpretation of the scene. In the latter case, modifying motion alone does not expose why the behavior was selected. Participants therefore valued being able to inspect the reasoning behind a performance decision, particularly when it referred to concrete dialogue or interaction cues.
+
+\textbf{DG4: Make AI interpretations inspectable through concise evidence-grounded rationales.}
+For each major performance decision, the interface should expose a short rationale and the dialogue or contextual evidence that motivated it. These rationales are intended to communicate the system's interpretation to the animator, rather than to provide an explanation of the internal computation of the language model.
+
+
+\subsection{Interaction Scope}
+
+We focus on \textit{target-character authoring} in dyadic conversations. Both participants in the conversation contribute contextual information, but the system generates and refines the performance of one selected target character at a time. This scope allows conversational behaviors such as attention, gaze avoidance, re-engagement, and reaction to be represented relative to another identifiable character while keeping the authoring workflow tractable.
+
+The representation itself does not assume that only two characters can exist in a scene: gaze targets and addressees are represented using character identifiers rather than fixed geometric directions. However, the current prototype and evaluation focus on dyadic interaction in order to isolate contextual performance authoring from the additional coordination problems introduced by multi-character scenes.
+
+
+\subsection{Performance Plan}
+
+The four design goals are operationalized through an intermediate representation that we call the \textit{Performance Plan}. The Performance Plan sits between LLM-based narrative interpretation and low-level animation execution. It describes \textit{what} performance the system proposes and \textit{why}, without directly specifying rig-controller values or animation curves.
+
+Each plan contains a sequence of temporally localized performance events. Table~\ref{tab:performance-plan} summarizes the principal fields.
+
+\begin{table}[t]
+    \centering
+    \caption{Core semantic fields represented in the Performance Plan.}
+    \label{tab:performance-plan}
+    \begin{tabular}{p{0.20\columnwidth} p{0.31\columnwidth} p{0.39\columnwidth}}
+        \toprule
+        \textbf{Category} & \textbf{Fields} & \textbf{Role} \\
+        \midrule
+        Intent &
+        communicative intent &
+        High-level interpretation of what the character is attempting to communicate or conceal. \\
+
+        Affect &
+        state, intensity &
+        Proposed expressive state and its strength. \\
+
+        Gaze &
+        target, onset, duration, avoidance, re-engagement &
+        Social attention and its temporal organization relative to dialogue. \\
+
+        Head &
+        involvement &
+        Degree to which head motion participates in gaze or expressive behavior. \\
+
+        Blink &
+        behavior / emphasis &
+        Optional blink behavior associated with conversational or expressive events. \\
+
+        Interpretation &
+        rationale, evidence &
+        Concise explanation and supporting dialogue or scene context. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Importantly, these fields describe semantic performance decisions rather than final motion. For example, a gaze event may specify that the target character should avert their gaze from the interlocutor after a particular utterance and re-engage several moments later. The subsequent system stage determines how that decision is instantiated through eye, head, and facial-animation controls.
+
+The Performance Plan therefore serves three roles in the workflow. First, it provides a structured output space for the LLM, constraining free-form narrative reasoning into animation-relevant decisions. Second, it exposes those decisions to the animator before they are committed to motion. Third, it provides a stable boundary between human-editable performance semantics and the procedural animation backend, allowing an approved interpretation to be regenerated or remapped without requiring the animator to reconstruct it through low-level controls.

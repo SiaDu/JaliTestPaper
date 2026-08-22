@@ -1,1 +1,243 @@
-\section{Eval}
+\section{Evaluation}
+
+We conducted a two-part evaluation to examine both the quality of contextual performance interpretation and the role of the Performance Plan during animation authoring. The first part isolated the contribution of conversational and narrative context by comparing performance proposals generated with different levels of contextual information. The second part evaluated the complete authoring workflow in a within-subject study with character animators.
+
+Together, the two studies addressed our three research questions:
+
+\begin{itemize}
+    \item \textbf{RQ1:} How does conversational and narrative context affect the appropriateness of LLM-proposed character performance decisions?
+    \item \textbf{RQ2:} How does an editable semantic Performance Plan affect animators' perceived control and their ability to iteratively refine AI-assisted character animation?
+    \item \textbf{RQ3:} How do animators accept, modify, reject, and reinterpret AI-generated performance suggestions during the authoring process?
+\end{itemize}
+
+
+\subsection{Participants}
+
+We recruited \textbf{[N]} participants with experience in character animation. Participants reported between \textbf{[X--Y]} years of animation experience ($M=[X.X]$, $SD=[X.X]$). The sample included \textbf{[N]} professional animators, \textbf{[N]} postgraduate or advanced animation students, and \textbf{[N]} participants with technical-animation or related experience.
+
+All participants had prior experience with Autodesk Maya or a comparable keyframe-animation package. \textbf{[N]} participants had previously used procedural or AI-assisted animation tools, while \textbf{[N]} had prior experience with JALI.
+
+Each session lasted approximately \textbf{[XX]} minutes. Participants received \textbf{[compensation]} for their participation. The study was approved by \textbf{[institution / ethics reference]}.
+
+
+\subsection{Conversational Scenes and Tasks}
+
+We selected \textbf{[N]} short dyadic dialogue scenes designed to include performance decisions that could not be determined from lexical content alone. Scenes contained between \textbf{[X--Y]} dialogue turns and approximately \textbf{[X--Y]} seconds of speech.
+
+The scenes varied in the degree of contextual ambiguity. Some contained relatively explicit emotional or interpersonal cues, whereas others required preceding dialogue or character relationships to interpret behaviors such as gaze avoidance, re-engagement, restrained affect, or reaction timing.
+
+For each scene, one character was designated as the target character. Participants were asked to author a facial performance for this character while treating the other character as the conversational interlocutor.
+
+To minimize familiarity effects, scene--condition assignments were counterbalanced across participants.
+
+
+\subsection{Study A: Effect of Narrative Context}
+
+To address RQ1, we evaluated whether additional conversational and narrative context changed the quality of the proposed Performance Plans.
+
+For each scene, the system generated performance proposals under two context conditions:
+
+\begin{description}
+    \item[\textbf{Utterance-Only}] The model received the target utterance, speaker identity, and target character, but no preceding dialogue, relationship description, or broader narrative context.
+
+    \item[\textbf{Full-Context}] The model received the complete structured context package described in Section~4.2, including preceding dialogue turns, speaker and addressee information, character relationships, and relevant scene-level context.
+\end{description}
+
+The same Performance Plan schema, model, generation parameters, and output constraints were used in both conditions. The order and labels of the resulting proposals were randomized so that participants were unaware of which context condition produced each plan.
+
+Participants inspected the two proposals for each scene and rated the appropriateness of the proposed:
+
+\begin{itemize}
+    \item communicative intent;
+    \item affect;
+    \item gaze target and avoidance behavior;
+    \item gaze timing and re-engagement;
+    \item head involvement; and
+    \item overall performance interpretation.
+\end{itemize}
+
+Ratings were collected on \textbf{[7-point]} Likert scales from \textit{strongly inappropriate} to \textit{strongly appropriate}. Participants also selected which proposal they would prefer to use as an initial authoring direction and briefly explained their choice.
+
+
+\subsubsection{Context Results}
+
+Full conversational context improved the perceived appropriateness of the proposed performance plans. Overall appropriateness ratings increased from $M=[X.XX]$ ($SD=[X.XX]$) in the Utterance-Only condition to $M=[X.XX]$ ($SD=[X.XX]$) in the Full-Context condition, \textbf{[statistical test and result]}.
+
+The largest differences occurred for \textbf{[gaze target / communicative intent / avoidance / other]}, whereas \textbf{[affect intensity / blink / other]} showed smaller differences between conditions.
+
+Participants preferred the Full-Context proposal in \textbf{[XX\%]} of comparisons. Qualitative responses indicated that additional context was particularly useful when the literal content of an utterance conflicted with the inferred social or emotional state of the character.
+
+For example, \textbf{[PXX]} noted that ``\textbf{[short participant quote]}'' when comparing two interpretations of \textbf{[scene description]}. In these cases, the Full-Context condition more frequently proposed behaviors such as gaze avoidance, delayed re-engagement, or restrained expression that participants associated with the broader interaction rather than the spoken words alone.
+
+However, participants did not uniformly prefer more context. In \textbf{[XX\%]} of trials, participants preferred the Utterance-Only interpretation or considered both alternatives equally plausible. Several participants emphasized that additional narrative information narrows interpretation but does not eliminate legitimate acting alternatives. We return to this ambiguity in Section~6.
+
+
+\subsection{Study B: Performance-Plan Authoring Workflow}
+
+To address RQ2 and RQ3, participants completed animation-authoring tasks using two workflows in a within-subject design.
+
+\begin{description}
+    \item[\textbf{Direct-Generation Baseline}] Participants received an AI-generated performance and could inspect the resulting animation and request revised generations through natural-language instructions. They could also use the available low-level animation controls for manual refinement, but the model's intermediate performance interpretation was not exposed.
+
+    \item[\textbf{Performance-Plan Workflow}] Participants used the complete system described in Section~4. The generated Performance Plan was exposed before execution, and participants could inspect, edit, accept, reject, lock, and selectively regenerate individual semantic performance decisions.
+\end{description}
+
+Both conditions used the same underlying LLM, conversational context, JALI backend, character rig, and source scenes. This controlled for differences in generation capability and isolated the interaction model as the primary experimental manipulation.
+
+Participants completed \textbf{[N]} scenes under each condition. Condition order and scene assignment were counterbalanced using \textbf{[Latin-square / randomized counterbalancing]}.
+
+
+\subsection{Procedure}
+
+Each session began with an introduction to the study and a short tutorial on both authoring workflows. Participants then completed one practice task that was not included in the analysis.
+
+For each experimental task, participants were shown the dialogue, scene context, character relationship, and target character. They were instructed to create a performance that they considered appropriate for the scene rather than to reproduce a predefined reference animation.
+
+Participants were allowed to stop editing when they considered the performance satisfactory. The system recorded all generation and authoring actions during the task.
+
+After each condition, participants completed a questionnaire assessing:
+
+\begin{itemize}
+    \item perceived control over the performance;
+    \item ease of making localized revisions;
+    \item ease of expressing their intended acting choice;
+    \item confidence in the final performance;
+    \item usefulness of AI suggestions;
+    \item perceived authorship and agency; and
+    \item workload.
+\end{itemize}
+
+At the end of the session, we conducted a semi-structured interview examining participants' use of the Performance Plan, situations in which they disagreed with AI interpretations, their use of explanations and evidence, and how they would integrate such a workflow into existing animation practice.
+
+
+\subsection{Logged Authoring Behavior}
+
+In addition to questionnaire responses, the system recorded interaction-level authoring behavior.
+
+For the Performance-Plan condition, we measured:
+
+\begin{itemize}
+    \item the proportion of AI suggestions accepted without modification;
+    \item the proportion modified before execution;
+    \item the proportion rejected;
+    \item the number and type of fields edited;
+    \item the number of locked fields;
+    \item the number of selective regenerations; and
+    \item the semantic categories most frequently revised.
+\end{itemize}
+
+For both conditions, we recorded:
+
+\begin{itemize}
+    \item task-completion time;
+    \item number of full or partial regeneration requests;
+    \item number of manual animation edits; and
+    \item number of preview--revision cycles.
+\end{itemize}
+
+These logs allowed us to examine not only whether participants preferred the system, but how AI proposals were incorporated, contested, and revised during authoring.
+
+
+\subsection{Quantitative Analysis}
+
+Because the authoring study used a within-subject design, we compared conditions using \textbf{[paired $t$-tests / Wilcoxon signed-rank tests, depending on the distribution and measure]}. We report effect sizes using \textbf{[Cohen's $d_z$ / rank-biserial correlation]} together with confidence intervals where appropriate.
+
+For multi-item constructs such as perceived control or agency, we calculated \textbf{[scale aggregation and reliability procedure]}. Statistical significance was assessed at $\alpha=.05$, with \textbf{[correction procedure if multiple comparisons were tested]}.
+
+Interaction logs were summarized both at the participant level and across semantic categories. We additionally examined the distribution of edits across gaze, affect, timing, head involvement, and interpretation fields.
+
+
+\subsection{Authoring Workflow Results}
+
+\subsubsection{Perceived control and local revision}
+
+Participants reported greater perceived control in the Performance-Plan condition ($M=[X.XX]$, $SD=[X.XX]$) than in the Direct-Generation condition ($M=[X.XX]$, $SD=[X.XX]$), \textbf{[test statistic, $p$, effect size]}.
+
+A similar difference was observed for the ability to make localized revisions, with participants reporting that the Performance Plan made it easier to change one aspect of a performance without disturbing decisions they wished to preserve.
+
+\textbf{[N/N]} participants specifically identified field-level editing or locking as useful when the initial generation was partially satisfactory.
+
+As \textbf{P[XX]} explained, ``\textbf{[short quote about keeping one good decision while changing another]}.''
+
+
+\subsubsection{Authoring time and iteration}
+
+Mean task-completion time was \textbf{[X.XX]} minutes in the Direct-Generation condition and \textbf{[X.XX]} minutes in the Performance-Plan condition, \textbf{[statistical result]}.
+
+The Performance Plan did not necessarily reduce the total number of revisions. Instead, it changed the form of iteration. Participants issued fewer \textbf{[full regeneration requests]} but performed more \textbf{[localized semantic edits / selective regenerations]}.
+
+This suggests that the system shifted iteration from replacing complete generated performances toward revising individual performance decisions.
+
+
+\subsubsection{Accepting, modifying, and rejecting AI suggestions}
+
+Across all Performance-Plan tasks, participants accepted \textbf{[XX\%]} of generated semantic decisions without modification, modified \textbf{[XX\%]}, and rejected \textbf{[XX\%]}.
+
+Modification rates differed across performance dimensions. The most frequently edited categories were:
+
+\begin{enumerate}
+    \item \textbf{[gaze timing: XX\%]},
+    \item \textbf{[gaze target / avoidance: XX\%]},
+    \item \textbf{[affect intensity: XX\%]},
+    \item \textbf{[head involvement: XX\%]}, and
+    \item \textbf{[communicative intent: XX\%]}.
+\end{enumerate}
+
+This pattern indicates that participants did not treat AI suggestions as either wholly correct or wholly incorrect. Instead, generated plans frequently served as partially acceptable starting points that were selectively revised.
+
+
+\subsubsection{Disagreement at the level of interpretation}
+
+Interaction logs and interviews revealed an important distinction between changes to \textit{execution} and changes to \textit{interpretation}. Some edits adjusted parameters such as duration or intensity while preserving the proposed semantic intention. Others changed the interpretation itself, for example by replacing engagement with avoidance, changing the inferred communicative intent, or selecting a different social target.
+
+\textbf{[XX\%]} of modified events involved at least one interpretation-level change rather than only a numerical or timing adjustment.
+
+Participants described these edits as qualitatively different from conventional animation refinement. \textbf{P[XX]} explained that ``\textbf{[quote showing disagreement with what character is doing/why rather than how strongly]}.''
+
+These cases provide direct evidence for the distinction motivating the Performance Plan: an animation can be mechanically plausible while still representing an acting choice with which the animator disagrees.
+
+
+\subsubsection{Use of rationales and narrative evidence}
+
+Participants viewed the rationale or associated evidence in \textbf{[XX\%]} of generated events and consulted it particularly often before rejecting or substantially modifying a proposal.
+
+Participants rated the rationales as \textbf{[X.XX/7]} useful on average. Their value was not primarily in convincing participants that a suggestion was correct. Instead, participants reported using them to identify the interpretation that had produced the behavior.
+
+Several participants described the rationale as useful when deciding whether to edit the animation or revise the underlying performance concept. However, \textbf{[N]} participants considered some explanations redundant when the proposed decision was already self-evident from the scene.
+
+
+\subsubsection{Agency and authorship}
+
+Participants reported higher perceived authorship in the Performance-Plan condition \textbf{[statistics]}, despite the fact that both conditions used the same generative model.
+
+Interview responses suggest that this difference resulted from the ability to preserve, contest, and explicitly revise semantic decisions rather than simply from having more adjustable parameters.
+
+Participants commonly characterized the AI as a source of ``\textbf{[suggestions / first pass / another interpretation]}'' rather than as the author of the final performance. This division of responsibility---AI proposing an interpretation and the animator deciding whether it should be retained---was generally viewed as compatible with participants' existing understanding of animation authorship.
+
+
+\subsection{Qualitative Analysis}
+
+We analyzed post-study interviews using reflexive thematic analysis \cite{braun2006thematic}. Two researchers \textbf{[or replace with actual process]} independently reviewed the transcripts and developed an initial coding structure. Codes were iteratively grouped and refined into themes describing participants' interaction with AI-generated performance interpretations.
+
+The analysis produced \textbf{[N]} primary themes:
+
+\begin{description}
+
+    \item[\textbf{T1: AI as a performance starting point rather than a final actor.}]
+    Participants valued receiving an initial acting interpretation but expected to retain responsibility for deciding whether it was appropriate.
+
+    \item[\textbf{T2: Semantic controls made disagreement actionable.}]
+    Participants found it easier to respond to an undesirable result when they could identify and edit the semantic decision that produced it.
+
+    \item[\textbf{T3: Preserving good decisions was central to productive iteration.}]
+    Locking and selective regeneration reduced the need to sacrifice satisfactory parts of a performance when exploring alternatives.
+
+    \item[\textbf{T4: Explanations were most valuable when interpretations diverged.}]
+    Rationales mattered less when participants already agreed with the suggestion, but became useful when the proposed acting choice was unexpected.
+
+    \item[\textbf{T5: Ambiguity remained desirable rather than a problem to eliminate.}]
+    Participants frequently identified multiple plausible performances for the same scene and preferred the system to support alternatives rather than optimize toward a single ``correct'' interpretation.
+
+\end{description}
+
+These findings inform the broader implications discussed in Section~6.
