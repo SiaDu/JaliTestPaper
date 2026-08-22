@@ -1,0 +1,98 @@
+% ============================================================
+% CHI 2027 Paper -- Initial Anonymous Submission
+% ACM Primary Article Template (current: acmart v2.19)
+%
+% CHI 2027 review format:
+%   single-column + line numbers + anonymous authors
+%
+% IMPORTANT:
+%   This .tex file is compatible with the current CHI 2027 format,
+%   but the actual template version is determined by acmart.cls.
+%   If kpsewhich/grep reports acmart v2.03, LaTeX is still compiling
+%   with v2.03 until the class/package is updated.
+%
+% After conditional acceptance, change ONLY the class options to:
+%   \documentclass[sigconf]{acmart}
+% ============================================================
+
+\documentclass[manuscript,review,anonymous]{acmart}
+
+% ------------------------------------------------------------
+% Packages
+% Keep the preamble minimal for ACM/TAPS compatibility.
+% acmart already loads many common packages.
+% ------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+% Older/minimal TeX installations may not include acmart's preferred
+% Libertine fonts.  Use the scalable Latin Modern fallback in that case;
+% otherwise microtype's font expansion fails on bitmap Computer Modern.
+\IfFileExists{libertine.sty}{}{\usepackage{lmodern}}
+
+\graphicspath{{figures/}}
+
+% ------------------------------------------------------------
+% BibTeX logo (as in ACM templates)
+% ------------------------------------------------------------
+\AtBeginDocument{%
+  \providecommand\BibTeX{{Bib\TeX}}%
+}
+
+\begin{document}
+
+% ============================================================
+% Title
+% ============================================================
+\title{Working Title}
+
+% Keep the review source itself anonymized as well.
+\author{Anonymous Author(s)}
+
+% ============================================================
+% Abstract
+% Write ONLY abstract prose in sections/abstract.tex.
+% Do not put \begin{abstract} / \end{abstract} in that file.
+% ============================================================
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+% ============================================================
+% CCS Concepts
+% Replace/refine these using the ACM CCS tool before submission.
+% ============================================================
+\ccsdesc[500]{Human-centered computing~Interactive systems and tools}
+\ccsdesc[300]{Computing methodologies~Animation}
+\ccsdesc[300]{Computing methodologies~Natural language processing}
+
+% ============================================================
+% Keywords
+% ============================================================
+\keywords{character animation, animation authoring, large language models,
+expressive animation, human-AI interaction, creative tools}
+
+\maketitle
+
+% ============================================================
+% Main paper
+% Section numbering is generated automatically by LaTeX.
+% ============================================================
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_design_rationale}
+\input{sections/04_system}
+\input{sections/05_evaluation}
+\input{sections/05_results}
+\input{sections/06_discussion}
+\input{sections/limitations_and_conclusion}
+
+% ============================================================
+% References
+% ============================================================
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}
