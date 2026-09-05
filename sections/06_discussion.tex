@@ -1,29 +1,38 @@
 \section{Discussion}
 
-6.1 Performance as an Editable Interpretation
+\textbf{[This section is intentionally left as a results-dependent scaffold. Complete it only after Study~A and Study~B have been analyzed. Do not convert the prompts below into claims unless they are supported by the collected data.]}
 
-Generation → interpretation → negotiation → execution.
+\subsection{When Does Context Change a Performance Interpretation?}
 
-6.2 Semantic Abstraction for Animation
+\textbf{[Insert the principal Study~B result.]}
+Interpret the context effect in terms of \emph{where} it occurs rather than assuming that more context is uniformly better. Compare lower-context-dependence vignettes with concealment, face-saving, affiliation, and relationship-repair cases, and discuss which semantic dimensions---acting interpretation, affect, attention, or speaker--listener placement---were most sensitive to added context. If some Dialogue-Only proposals are equally or more appropriate, use these cases to reinforce that context constrains a subjective acting space rather than establishing a single ground-truth performance.
 
-Performance Plan bridges screenplay semantics and low-level controls.
+\subsection{Performance Interpretation as an Authoring Object}
 
-6.3 Human-AI Agency
+\textbf{[Insert the principal Study~A control/revision result.]}
+Use the behavioral logs and participant accounts to determine whether exposing Semantic Performance Tags changed the \emph{object of revision}: for example, whether participants could identify and alter a disputed attention or affect decision without replacing an otherwise acceptable performance. Relate the result to prior work on editable intermediate representations and mixed-initiative creative tools \cite{earle2025dreamgarden,shi2025brickify,riche2025ai,ma2025dynex,zamfirescu2025beyond,horvitz1999mixed}. The claim should remain specific to conversational acting rather than ``editable intermediate representations'' in general.
 
-AI proposes; animator judges, preserves, contests, revises.
+If the Editable Semantic Performance Tags workflow increases workload or task time, discuss this as a control--effort trade-off rather than treating efficiency as the sole success criterion. Conversely, do not interpret faster completion as evidence of greater agency without supporting subjective and behavioral data.
 
-6.4 Explainability
+\subsection{Semantic Attention Versus Shot-Specific Gaze Realization}
 
-Not model explanation; visibility of creative interpretation.
+\textbf{[Use only if the interview data support this theme.]}
+A useful design boundary may emerge between the semantic attention relation and its visual realization. The semantic tag representation expresses who or what a character attends to, while the Maya execution layer resolves that relation through shot-specific calibrated look-at poses. This follows the broader tagged high-level control tradition used by JALI and S$^3$ \cite{edwards2020jali,pan2024s3}, but places an editable AI-proposed interpretation upstream of execution.
 
-6.5 Ambiguity as a Feature
+If participants explicitly discuss camera angle, staging, iris/pupil visibility, or rig-specific adjustment, use those observations here to argue that semantic intention should remain stable even when the visual gaze pose changes across shots. If the study uses pre-calibrated look-at poses and participants do not directly manipulate calibration, frame this as a system-design implication rather than an evaluated user-study finding.
 
-No single correct acting choice; support alternatives rather than optimize toward “ground truth.”
+\subsection{Interpretation Visibility Without Treating Reasons as Ground Truth}
 
-6.6 Design Implications
+\textbf{[Insert evidence about use or non-use of Acting Interpretation by Phrase.]}
+The read-only reasons in the prototype are intended to make a proposed acting interpretation legible enough to accept or contest; they are not explanations of model internals or evidence that a suggestion is correct. If participants consult reasons mainly before large revisions, discuss them as \emph{interpretation visibility}. If participants ignore them, treat that as equally informative evidence that visual feedback or direct correction may be more useful than explanation during production.
 
-Expose semantic decisions; support partial regeneration; preserve approved choices; connect rationale to evidence.
+This framing is particularly important for character acting because several interpretations may remain defensible. Any broader implication for creative AI should therefore concern negotiation among plausible interpretations rather than model confidence or prediction correctness.
 
-6.7 Limitations
+\subsection{Limitations and Future Work}
 
-Small expert sample; JALI dependency; dyadic scope; LLM variability; cultural/acting subjectivity; limited performance channels.
+\textbf{[Update participant counts and any observed study-specific limitations.]}
+Several limitations are already inherent to the present design. First, the study evaluates short dyadic scenes and a first-use workflow; it does not establish how the representation scales to long-form production, repeated professional use, overlapping speech, or scenes with more than two active characters. Second, execution is demonstrated through JALI and Maya, so the semantic representation may be more general than the specific control vocabulary and rig backend evaluated here. Third, the prototype exposes only a subset of acting decisions---visible affect, semantic attention, head behavior, and performative blink---and low-level Maya edits are not synchronized back into the Semantic Performance Tags or the canonical backend plan.
+
+Fourth, the Study~A comparison holds camera-specific gaze calibration constant in order to isolate the authoring representation. The study therefore does not independently establish that manual gaze calibration improves gaze readability across camera viewpoints; that remains a system capability and a target for dedicated evaluation. Fifth, LLM outputs can vary across models, prompts, and software versions. Study~B should therefore be interpreted as evidence about the role of context within the tested generation setup, not as a claim that a particular model produces uniquely correct acting. Finally, acting interpretation is culturally, stylistically, and production-context dependent, and the current semantic vocabulary may not transfer unchanged across performance traditions.
+
+Future work should examine multi-character coordination, alternative or branching semantic-performance proposals, explicit preservation constraints during regeneration, bidirectional synchronization between semantic decisions and low-level curve edits, longer-term professional use, and dedicated evaluation of camera-aware gaze calibration.
