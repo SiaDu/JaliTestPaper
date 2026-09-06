@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    width=\linewidth,
+    height=6.2cm,
+    ymin=1, ymax=7,
+    ylabel={Mean rating (1--7)},
+    symbolic x coords={Match to intended reading,Final satisfaction},
+    xtick=data,
+    x tick label style={rotate=10,anchor=east,align=right,font=\small},
+    legend style={at={(0.5,-0.28)},anchor=north,legend columns=2},
+    error bars/y dir=both,error bars/y explicit,
+    bar width=15pt,
+    enlarge x limits=0.28,
+    grid=major,
+]
+\addplot+ coordinates {(Match to intended reading,5.10) +- (0,0.97) (Final satisfaction,5.15) +- (0,1.06)};
+\addplot+ coordinates {(Match to intended reading,5.65) +- (0,0.82) (Final satisfaction,5.75) +- (0,0.89)};
+\legend{Direct Generation,Editable Tags}
+\end{axis}
+\end{tikzpicture}
