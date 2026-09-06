@@ -1,0 +1,35 @@
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    width=\textwidth,
+    height=7.0cm,
+    ymin=0, ymax=100,
+    ylabel={Raw NASA-TLX score (0--100)},
+    symbolic x coords={Mental,Physical,Temporal,Performance,Effort,Frustration},
+    xtick=data,
+    x tick label style={rotate=15,anchor=east,font=\small},
+    legend style={at={(0.5,-0.22)},anchor=north,legend columns=2},
+    error bars/y dir=both,error bars/y explicit,
+    bar width=9pt,
+    enlarge x limits=0.08,
+    grid=major,
+]
+\addplot+ coordinates {
+(Mental,39.3) +- (0,18.1)
+(Physical,12.0) +- (0,13.6)
+(Temporal,20.4) +- (0,18.0)
+(Performance,43.0) +- (0,22.0)
+(Effort,37.0) +- (0,21.6)
+(Frustration,16.0) +- (0,16.3)
+};
+\addplot+ coordinates {
+(Mental,41.5) +- (0,19.2)
+(Physical,14.0) +- (0,15.1)
+(Temporal,19.7) +- (0,15.8)
+(Performance,55.2) +- (0,22.4)
+(Effort,40.3) +- (0,24.2)
+(Frustration,18.5) +- (0,19.1)
+};
+\legend{Direct Generation,Editable Tags}
+\end{axis}
+\end{tikzpicture}
