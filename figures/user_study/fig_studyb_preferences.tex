@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    width=\linewidth,
+    height=5.8cm,
+    ymin=0, ymax=30,
+    ylabel={Scene-level preferences},
+    symbolic x coords={Full-Context,Dialogue-Only,No preference},
+    xtick=data,
+    x tick label style={rotate=10,anchor=east,font=\small},
+    bar width=18pt,
+    enlarge x limits=0.25,
+    nodes near coords,
+    grid=major,
+]
+\addplot+ coordinates {(Full-Context,27) (Dialogue-Only,15) (No preference,11)};
+\end{axis}
+\end{tikzpicture}
