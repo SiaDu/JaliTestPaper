@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+\begin{axis}[
+    xbar,
+    width=\textwidth,
+    height=10.0cm,
+    xmin=1, xmax=7,
+    xlabel={Mean rating (1--7)},
+    symbolic y coords={Effort worthwhile,Explore alternatives,Creative ownership,Visual--semantic iteration,Dyadic coordination,Final-direction control,Revision clarity,Local revision/preserve,Express direction},
+    ytick=data,
+    y tick label style={font=\small},
+    legend style={at={(0.5,-0.12)},anchor=north,legend columns=2},
+    error bars/x dir=both,error bars/x explicit,
+    bar width=6pt,
+    grid=major,
+]
+\addplot+ coordinates {
+(6.13,Effort worthwhile) +- (0.00,0)
+(6.30,Explore alternatives) +- (0.48,0)
+(4.78,Creative ownership) +- (1.20,0)
+(5.22,Visual--semantic iteration) +- (1.30,0)
+(5.00,Dyadic coordination) +- (1.49,0)
+(5.20,Final-direction control) +- (1.23,0)
+(4.89,Revision clarity) +- (1.54,0)
+(5.00,Local revision/preserve) +- (1.41,0)
+(5.50,Express direction) +- (1.08,0)
+};
+\addplot+ coordinates {
+(6.13,Effort worthwhile) +- (0.84,0)
+(6.40,Explore alternatives) +- (0.70,0)
+(5.33,Creative ownership) +- (1.22,0)
+(5.00,Visual--semantic iteration) +- (1.41,0)
+(5.80,Dyadic coordination) +- (0.92,0)
+(5.60,Final-direction control) +- (0.97,0)
+(6.22,Revision clarity) +- (0.67,0)
+(5.50,Local revision/preserve) +- (1.18,0)
+(5.80,Express direction) +- (0.92,0)
+};
+\legend{Direct Generation,Editable Tags}
+\end{axis}
+\end{tikzpicture}
