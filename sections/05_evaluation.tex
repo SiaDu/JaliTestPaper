@@ -12,17 +12,15 @@ We designed a two-part evaluation to separate two questions that would otherwise
 
 \subsection{Participants and Overall Procedure}
 
-\textbf{[Complete after data collection.]}
-We recruited \textbf{[N; planned target: at least 16 usable participants]} with character-animation or closely related performance-authoring experience. Participants reported \textbf{[X--Y]} years of relevant experience ($M=[X.X]$, $SD=[X.X]$); \textbf{[N]} had professional animation or cinematic-production experience, \textbf{[N]} were postgraduate or advanced animation students, and \textbf{[N]} had previously used procedural or AI-assisted animation tools. All participants had prior experience with Maya or a comparable keyframe-animation package. Sessions lasted approximately \textbf{[XX]} minutes, participants received \textbf{[compensation]}, and the study was approved by \textbf{[institution / ethics reference]}.
+We analyzed ten usable participant records from the formal study. Participants had character-animation or closely related performance-authoring backgrounds spanning game/film animation, animation/VFX study, and professional character animation. Seven participants reported a numeric duration of relevant experience, ranging from 2 to 8 years ($M=4.57$, $SD=1.99$). Of the nine participants who completed the software-background items, all reported prior experience with Maya or another keyframe-animation package. We use animation background and production experience only as descriptive participant characteristics.
 
-Participants first received an explanation of the semantic fields exposed by the Semantic Performance Tag representation and completed a short practice example. \textbf{[Report whether the same participants completed both studies and the final study order.]}
-Formal stimuli used in Study~A and Study~B did not overlap. Study~A used one additional tutorial scene that was not included in analysis.
+Participants first received an explanation of the semantic fields exposed by the Semantic Performance Tag representation and completed a short practice example. The same participants then completed the end-to-end authoring tasks and the text-only context-ablation ratings. Formal stimuli used in Study~A and Study~B did not overlap. Study~A used one additional tutorial scene that was not included in analysis.
 
 \subsection{Study A: Authoring Workflow Comparison}
 
 \subsubsection{Tasks and Experimental Conditions}
 
-Study~A evaluates whether exposing the AI-proposed semantic interpretation through editable Semantic Performance Tags changes how animators revise AI-assisted conversational performances. Participants completed one tutorial followed by \textbf{[four]} short formal dyadic scenes. Formal scenes were selected to exercise complementary context-dependent acting problems---for example concealment or suspicion, restrained or affectively incongruent response, evolving interpersonal tension, and relationship repair---rather than a fixed set of emotion categories. Scenes were required to contain exactly two speaking characters and were kept within a comparable duration and dialogue complexity \textbf{[report final ranges]}. Participants were asked to author the performance of \emph{both} interlocutors until the result matched their own intended reading of the scene rather than reproduce a predefined reference performance.
+Study~A evaluates whether exposing the AI-proposed semantic interpretation through editable Semantic Performance Tags changes how animators revise AI-assisted conversational performances. Participants completed one tutorial followed by four short formal dyadic scenes. Formal scenes were selected to exercise complementary context-dependent acting problems---for example concealment or suspicion, restrained or affectively incongruent response, evolving interpersonal tension, and relationship repair---rather than a fixed set of emotion categories. Scenes were required to contain exactly two speaking characters and were selected to keep the authoring tasks short and comparable in scope. Participants were asked to author the performance of \emph{both} interlocutors until the result matched their own intended reading of the scene rather than reproduce a predefined reference performance.
 
 We used a within-subject comparison with two conditions. The implementation uses the same underlying generation and execution path in both conditions; the study UI mode changes whether the semantic-tag and interpretation sections are visible.
 
@@ -32,9 +30,9 @@ Participants provided the dialogue and Acting Direction and viewed the resulting
 \paragraph{Editable Semantic Performance Tags.}
 Participants received the same initial dialogue, Acting Direction, model configuration, and generated animation, but could additionally inspect the two character-specific Semantic Performance Tag panels. They could change one or multiple executable decisions across either character---including affect, persistent or temporary attention, head behavior, and performative blink---before validating and applying the edited tags. These edits update the existing canonical plan and are then deterministically recompiled; they do not invoke a selective LLM regeneration step. The current system does not provide field locking or selective LLM regeneration.
 
-The comparison holds execution variables constant. Both conditions use the same LLM configuration, scene audio, character rigs, cameras, JALI backend, and semantic look-at targets. To avoid confounding the authoring-representation comparison with shot setup, look-at targets are calibrated for each scene/camera before the formal task and the same captured calibrations are used in both conditions. Direct low-level Maya curve editing is \textbf{[disabled / excluded from the formal task]} so that differences primarily reflect prompt-level regeneration versus semantic-tag editing.
+The comparison holds execution variables constant. Both conditions use the same LLM configuration, scene audio, character rigs, cameras, JALI backend, and semantic look-at targets. To avoid confounding the authoring-representation comparison with shot setup, look-at targets are calibrated for each scene/camera before the formal task and the same captured calibrations are used in both conditions. Direct low-level Maya curve editing was excluded from the formal task so that differences primarily reflected prompt-level regeneration versus semantic-tag editing.
 
-Each participant completed \textbf{[two]} formal scenes per condition. Scene--condition assignment and condition order were counterbalanced using \textbf{[Latin-square / balanced counterbalancing procedure]}. A participant could stop when satisfied or when the task reached a pre-specified maximum duration of \textbf{[T] minutes}; the time limit will be finalized through pilot testing.
+Each participant completed two formal scenes with Direct Generation followed by two scenes with Editable Semantic Performance Tags. The four authoring scenes were distributed across participants, but the workflow order was fixed in the collected sessions. Consequently, Study~A is analyzed as a paired first-use comparison and any workflow difference must be interpreted with a possible practice/order effect rather than as an order-independent causal estimate. Direct low-level Maya curve editing was excluded from the formal task.
 
 \subsubsection{Interaction Records}
 
@@ -48,25 +46,13 @@ The current prototype retains the original generated canonical plan, the final a
     \item opening and closing of the Semantic Performance Tag and read-only \emph{Acting Interpretation by Phrase} sections as coarse inspection events.
 \end{itemize}
 
-We operationalize \emph{accepted}, \emph{modified}, and \emph{removed} from the difference between the original generated canonical plan and the final authored plan rather than from explicit ``accept'' or ``reject'' controls. The present instrumentation does not claim a complete action-by-action history of every validation, animation preview, regeneration, or tag relocation; such measures will only be reported if additional event logging is implemented before the formal study.
+We operationalize \emph{accepted}, \emph{modified}, and \emph{removed} from the difference between the original generated canonical plan and the final authored plan rather than from explicit ``accept'' or ``reject'' controls. The present instrumentation does not provide a complete action-by-action history of every validation, animation preview, regeneration, or tag relocation, so these coarse records are used descriptively rather than as a complete interaction trace.
 
 \subsubsection{Subjective Measures}
 
-After each formal task, participants rate \textbf{[final performance satisfaction / match to intended reading]} on a 7-point scale. After each condition block, we administer the raw NASA-TLX workload scales \cite{hart1988nasa}. We also administer \textbf{[the standard Creativity Support Index (CSI), or explicitly report only the CSI factor ratings actually administered]} \cite{cherry2014csi}. If only selected CSI dimensions are used, we will not report them as a validated overall CSI score.
+After each formal authoring task, participants rated (1) how well the final performance matched their intended reading of the scene and (2) satisfaction with the final performance on seven-point scales. After each two-task workflow block, participants completed the six raw NASA-TLX dimensions \cite{hart1988nasa}. They also rated nine workflow statements individually on seven-point agreement scales, covering expression of acting direction, local revision while preserving accepted choices, revision clarity, control of the final acting direction, speaker--listener coordination, movement between visual judgment and semantic revision, creative ownership, exploration of alternatives, and whether the result justified the invested effort. We report these items individually rather than combine them into an unvalidated composite score.
 
-Because existing standardized instruments do not directly measure semantic control over an AI-proposed acting interpretation, we additionally use the following study-specific 7-point agreement items (\emph{1 = strongly disagree; 7 = strongly agree}) and report them individually rather than combine them into an unvalidated scale:
-
-\begin{enumerate}
-    \item I could express the acting direction I wanted.
-    \item I could change one performance decision without unnecessarily changing decisions I wanted to keep.
-    \item I understood which part of the performance I was changing when I made a revision.
-    \item I felt in control of the final acting direction.
-    \item The workflow helped me coordinate the speaking and listening behavior of the two characters.
-    \item It was easy to move between judging the animation visually and revising the underlying performance decision.
-    \item The final performance felt like my creative decision rather than the system's decision.
-\end{enumerate}
-
-Items referring specifically to Semantic Performance Tags or \emph{Acting Interpretation by Phrase} are asked only as diagnostic questions after the Editable Semantic Performance Tags condition and are not used in between-condition statistical comparisons.
+After the Editable Semantic Performance Tag block, participants additionally rated three diagnostic items concerning whether the tags matched the level at which they wanted to edit performance, whether phrase-level acting interpretations were useful, and whether the dual-character layout supported speaker--listener coordination. These diagnostic items were not used in the between-workflow statistical comparison.
 
 \subsubsection{Post-Study Interview}
 
@@ -88,7 +74,7 @@ The semi-structured interview focuses on the process behind observed edits rathe
 
 \subsubsection{Study A Analysis}
 
-For within-subject quantitative outcomes we will compare conditions using \textbf{[paired models/tests chosen according to the final outcome distribution]}, reporting effect sizes and confidence intervals. Where a formal-task interval is isolated by the study procedure, completion time is treated as a secondary efficiency measure rather than the primary success criterion. Behavioral records will be used to characterize the granularity and location of revision from original-to-final semantic differences, including which character and semantic channels are most frequently retained, modified, added, or removed. Coarse UI-session and inspection events will be used descriptively rather than treated as a complete action sequence.
+For the two task-level outcomes, we first averaged each participant's two tasks within each workflow. The nine workflow items and six NASA-TLX dimensions were analyzed as paired participant-level observations. Because the sample is small and the primary questionnaire outcomes are ordinal, we use two-sided Wilcoxon signed-rank tests. We report rank-biserial correlations as paired effect sizes and apply Holm correction within the task-outcome, workflow-item, and NASA-TLX families. Positive rank-biserial values indicate higher ratings in the Editable Semantic Performance Tag condition; for NASA-TLX, higher values indicate greater workload except for the performance dimension, where 0 denotes perfect performance and 100 denotes failure.
 
 \subsection{Study B: Context Ablation}
 
@@ -136,13 +122,6 @@ After rating both proposals, participants selected Plan~A, Plan~B, or No prefere
 
 \subsubsection{Study B Analysis}
 
-The primary outcome is overall contextual appropriateness; field-level ratings are secondary outcomes. Because each participant rates repeated vignettes and each vignette has four model-generation replicate pairs, we will analyze ratings using \textbf{[ordinal / linear mixed-effects models appropriate to the final data distribution]} with context condition as a fixed effect and participant and vignette as repeated/random factors. We will additionally test whether the effect of context differs between lower- and higher-context-dependence stimuli. Pairwise starting-point preference will be analyzed using \textbf{[mixed-effects logistic / multinomial analysis]}, with ``no preference'' reported separately. We will report effect sizes and confidence intervals rather than treating statistical significance alone as evidence that Full-Context proposals are preferable.
+The primary outcome is overall contextual appropriateness; acting intention, affect, attention/gaze, and temporal placement are secondary outcomes. For each criterion, we averaged the six Dialogue-Only ratings and the six Full-Context ratings within participant and compared the paired participant-level values with two-sided Wilcoxon signed-rank tests. We report rank-biserial correlations and Holm-adjusted $p$ values across the five criteria. Starting-plan choices are reported descriptively after decoding the counterbalanced anonymous Plan A/Plan B assignments back to Dialogue-Only and Full-Context; ``No preference'', missing, and ambiguous responses are retained separately.
 
-Post-study interviews from Study~A and open-ended Study~B responses will be analyzed using reflexive thematic analysis \cite{braun2006thematic,braun2019reflexive}. \textbf{[After data collection, replace this placeholder with the actual analysis procedure, researcher roles, number of coding/review passes, and how themes were developed.]}
-
-% --------------------------------------------------------------------------
-% IMPORTANT FOR FINAL PAPER:
-% Do not add "Finding" subsections until results exist.
-% Do not claim that tag editing reduces regeneration, increases control, or
-% improves appropriateness unless the collected data support those claims.
-% --------------------------------------------------------------------------
+Open-ended Study~B responses and Study~A post-task comments are used only as qualitative context in this N=10 snapshot; no thematic frequency claims are made from the questionnaire alone.
