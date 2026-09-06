@@ -2,7 +2,7 @@
 
 \subsection{Formative Interviews}
 
-We conducted semi-structured interviews with five practitioners involved in authoring or directing character performance. Four participants had professional experience in animation or CG production, including film animation, game cinematics, previs, and 3D game animation, while one participant was a senior game designer. Participants were 26--33 years old and reported between 2 and 10 years of relevant professional experience. We intentionally included both animation and game-production perspectives because the proposed workflow concerns not only low-level facial-animation execution but also upstream decisions about character intent and performance direction. Table~\ref{tab:formative-participants} summarizes their backgrounds.
+We conducted semi-structured interviews with five practitioners involved in authoring or directing character performance. Four had professional animation or CG-production experience spanning film animation, game cinematics, previs, and 3D game animation; one was a senior game designer. Participants were 26--33 years old with 2--10 years of relevant professional experience (Table~\ref{tab:formative-participants}). We included both animation and game-production perspectives because the proposed workflow concerns upstream performance direction as well as facial-animation execution.
 
 \begin{table}[t]
     \centering
@@ -21,67 +21,49 @@ We conducted semi-structured interviews with five practitioners involved in auth
     \end{tabular}
 \end{table}
 
-Participants were recruited through email and professional or social-media networks. Interviews were conducted remotely in English and lasted approximately one hour. Participants received no monetary compensation. All participants provided informed consent, and the study was conducted under the authors' institutional ethics approval. Interview records were transcribed and anonymized for analysis.
+Participants were recruited through email and professional or social-media networks. Interviews were remote, lasted approximately one hour, and were uncompensated; all participants provided informed consent under institutional ethics approval. We first asked about existing performance-authoring practices, including how participants interpret dialogue and make decisions about gaze, expression, head motion, and blinking, and where speech-driven automation becomes insufficient. Participants unfamiliar with comparable speech-driven or JALI-based animation saw a short orientation example. We then introduced design probes---structured semantic decisions, selective preservation/regeneration, and brief rationales---after the open-ended discussion so that existing workflow concerns could be distinguished from reactions to proposed features.
 
-The interview proceeded in two parts. The first part used open-ended questions to examine participants' existing performance-authoring practices, including how they interpret dialogue and make decisions about gaze, facial expression, head motion, and blinking. We also discussed their prior experience with speech-driven facial animation and where such automation becomes insufficient for character performance.
-
-Before discussing AI-assisted editing, participants who were not familiar with the relevant type of speech-driven or JALI-based facial animation were shown a short example to establish a shared understanding of the type of animation considered in this work. Participants who were already familiar with comparable workflows were not shown this example. The example was used only for orientation rather than as a common evaluation stimulus.
-
-The later part of the interview introduced several interaction concepts as design probes, including structured semantic performance decisions, selective preservation and regeneration, and brief rationales for AI-generated behaviors. These concepts were introduced only after the discussion of participants' existing practices. This ordering allowed us to distinguish recurrent workflow concerns from participants' reactions to proposed interaction mechanisms.
-
-We analyzed the interview data using reflexive thematic analysis \cite{braun2006thematic,braun2019reflexive}. OpenAI ChatGPT was used to assist the initial organization of recurring concepts and candidate codes across the interview transcripts. The first author subsequently reviewed these codes against the complete interview records, revised or merged them where necessary, and verified the interpretation of all excerpts reported in the paper. The reviewed codes were then iteratively organized into higher-level themes. We retained divergent responses rather than requiring agreement across participants.
+We analyzed the interviews using reflexive thematic analysis \cite{braun2006thematic,braun2019reflexive}. OpenAI ChatGPT assisted the initial organization of recurring concepts and candidate codes; the first author reviewed all codes against the complete transcripts, revised or merged them, verified reported interpretations, and iteratively organized them into themes. Divergent responses were retained rather than forced into consensus.
 
 \subsection{Findings}
 
-\paragraph{Performance begins with an acting direction, but is judged through the resulting image.}
+\paragraph{Performance begins with acting direction but is judged visually.}
+Participants described performance decisions as beginning above animation curves: motivation, personality, emotional state, relationships, prior events, and subtext established a target before individual behaviors were authored. However, they differed on when textual semantics should appear. P2 and P4 preferred seeing the system's interpretation before animation, whereas P3 and P5 found visual output more immediate for judging whether an acting choice worked. P3 also noted that key poses can communicate performance more directly than textual descriptions, while P5 still found structured semantics useful for understanding and revision. Semantic representation therefore appeared most useful alongside visual feedback rather than as its replacement.
 
-Across participants, performance authoring was described as beginning above the level of animation curves. Participants first considered character motivation, personality, emotional state, relationships, preceding events, and subtext before deciding how a character should behave. P1 described direct manipulation without an acting direction as difficult because there was no clear performance target, while P4 similarly emphasized establishing what the character is trying to do before specifying individual behaviors.
+\paragraph{Performance depends on narrative and production context.}
+Participants consistently linked expression and gaze to personality, internal state, relationships, prior dialogue, and dramatic purpose. Gaze was treated as intentional, with eye contact, aversion, and re-engagement related to attention, attitude, thought, or withdrawal. They also emphasized shot scale, camera direction, staging, rhythm, and rig controls: close-ups could motivate finer eye and blink design, while broader or dynamic shots reduced the value of subtle facial behavior. These observations identify a broader production context than the prototype attempts to model. The prototype therefore models narrative and interpersonal context while leaving shot- and rig-specific realization to Maya.
 
-Participants did not, however, uniformly prefer a textual semantic representation over generated animation. P2 and P4 preferred seeing the system's interpretation before committing to animation, whereas P3 and P5 considered the visual result more immediate for judging whether an acting choice worked. P3 also noted that key poses could communicate performance more directly than textual descriptions. P5 preferred seeing animation first while still finding structured semantic descriptions useful for understanding and revising it. Semantic representation therefore appeared most useful when coupled with visual evaluation rather than used as its replacement.
+\paragraph{Useful automation requires preservation, but channels remain coupled.}
+Participants generally treated generated animation as a starting point and valued retaining satisfactory choices while revising disputed ones. Yet selective editing did not imply perceptual independence: P3 emphasized that gaze, expression, head motion, and other facial behaviors may need coordinated changes. Participants were therefore more comfortable preserving high-level decisions or global properties such as strength than freezing every low-level channel independently.
 
-\paragraph{Performance choices depend on narrative context, but also on production context.}
-
-Participants consistently described facial performance as context dependent. Character personality, internal state, relationships, prior dialogue, and the current dramatic purpose influenced decisions about expression and gaze. Gaze in particular was described as intentional rather than arbitrary: participants associated eye contact, gaze avoidance, and re-engagement with attention, attitude, thought, emotional withdrawal, and the progression of a scene.
-
-Participants also emphasized factors beyond narrative semantics. Shot scale, camera direction, staging, performance rhythm, and available rig controls could alter how a facial performance should be realized. Close-ups, for example, motivated finer eye and blink design, whereas broader or highly dynamic shots reduced the importance of subtle facial behavior. These observations reveal a broader production context than the current prototype attempts to model.
-
-\paragraph{Useful automation requires preservation, but facial behaviors cannot always be edited independently.}
-
-Participants generally viewed generated facial animation as a starting point rather than a final result. Several valued the ability to retain satisfactory parts of a generated performance while revising only what remained incorrect. P2 and P4 were especially explicit about preserving accepted output rather than regenerating the entire performance whenever one aspect was unsatisfactory.
-
-At the same time, selective editing was not understood as complete independence between facial channels. P3 emphasized that gaze, expression, head motion, and other aspects of performance are perceptually coupled: changing one behavior may require corresponding changes elsewhere to maintain coherence. Participants were more consistently comfortable preserving high-level decisions or adjusting global properties such as strength than freezing every low-level channel independently.
-
-\paragraph{Explanations are useful when interpretation is uncertain, but should not interrupt authoring.}
-
-Participants expressed mixed interest in explanations of AI behavior. Some valued knowing why the system proposed an unexpected acting choice, particularly when a concise explanation helped them determine whether the system had interpreted the scene as intended. P4 considered the reasoning behind an acting choice especially useful, with supporting context available when more detail was needed.
-
-Others placed substantially less value on explanations. P3 preferred quickly correcting an incorrect performance during production rather than reading its rationale, while P5 wanted only enough information to understand the system's intention before modifying the result. Participants also warned that verbose explanations or attempts to justify an obviously inappropriate result could interrupt the creative process.
+\paragraph{Explanations should remain lightweight.}
+Interest in explanations was mixed. Some participants valued brief reasons for unexpected acting choices because they helped diagnose the system's interpretation; others preferred correcting a visible problem directly. P4 valued reasoning when it clarified an unexpected choice, whereas P3 preferred correcting an incorrect result during production and P5 wanted only enough information to understand the system's intention. Verbose explanations were seen as potentially disruptive. This motivated concise acting interpretations that support inspection without becoming a mandatory reading step.
 
 \subsection{Design Goals}
 
-Taken together, the findings motivated four design goals. These goals synthesize both recurrent workflow concerns from the open-ended portion of the interviews and participants' reactions to the later design probes, rather than treating each probe response as a direct feature requirement.
+The findings motivated four design goals.
 
-\textbf{DG1 --- Couple semantic performance decisions with visual feedback.}
+\textbf{DG1 --- Couple semantic decisions with visual feedback.}
 The system should expose animator-meaningful performance concepts while allowing users to evaluate their realization in animation. The Semantic Performance Tag representation therefore functions alongside, rather than instead of, the Maya preview.
 
 \textbf{DG2 --- Represent narrative and interpersonal state across both interlocutors.}
-The system should preserve character identity, speaker/listener structure, preceding dialogue, relationships, and relevant scene information when proposing performance. Because a conversational beat may be driven by what one character says and what the other hears, speaking and listening behavior should be interpreted within one shared conversational context rather than as two unrelated target-character problems. Shot composition and rig-specific constraints remain outside the current semantic model and are handled through visual preview and subsequent Maya refinement. For gaze, this separation is explicit: the semantic representation specifies the semantic attention target---who or what the character attends to---while the animator calibrates its shot-specific visual realization in Maya. The same semantic target can therefore be realized differently across camera viewpoints without changing the underlying acting decision.
+The system should preserve character identity, speaker/listener structure, preceding dialogue, relationships, and relevant scene information in one shared conversational interpretation. Because a conversational beat may be driven by what one character says and what the other hears, speaking and listening behavior are interpreted jointly rather than as unrelated target-character problems. Shot composition and rig-specific constraints remain outside the semantic model; for gaze, the semantic target is stable while the animator calibrates its shot-specific realization in Maya.
 
 \textbf{DG3 --- Support local but coordinated revision.}
-Users should be able to revise a disputed acting or attention decision without replacing the complete performance. Revision should occur at the semantic level---for example, changing an affect, persistent attention target, or temporary check---while deterministic execution remains responsible for translating the edited state into coordinated animation controls.
+Allow a disputed acting or attention decision to be revised without replacing the complete performance. Revision occurs at the semantic level---for example by changing affect, persistent attention, or a temporary check---while deterministic execution handles coordinated low-level realization.
 
-\textbf{DG4 --- Keep interpretation lightweight and available during authoring.}
-The interface should expose a concise natural-language acting interpretation for the initial state and each meaningful beat, so that animators can understand the intended performance without reading a verbose explanation for every low-level behavior. These descriptions communicate the proposed acting choice rather than hidden model reasoning or chain-of-thought.
+\textbf{DG4 --- Keep interpretation lightweight and available.}
+Expose concise natural-language acting interpretations for the initial state and meaningful beats so animators can understand the intended performance without reading a verbose explanation for every low-level behavior. These descriptions communicate the proposed acting choice rather than hidden model reasoning.
 
 \subsection{Interaction Scope and Semantic Performance Tags}
 
-These design goals motivated an authoring representation that sits between narrative interpretation and low-level facial animation. We focus on dyadic conversational authoring. Both interlocutors are represented within one shared semantic proposal; the system does not generate two independent target-character outputs and merge them afterward. Internally, the backend stores this proposal as a canonical Performance Plan. For authoring, Maya projects the same content as two character-specific \textit{Semantic Performance Tag} panels over one immutable dialogue. The underlying proposal contains an initial performance state for both characters followed by sparse semantic beats anchored to that dialogue.
+The resulting representation sits between narrative interpretation and low-level facial animation. We focus on dyadic conversation: both interlocutors belong to one shared semantic proposal rather than independently generated character outputs. Internally, the backend stores a canonical Performance Plan; Maya projects it as two character-specific \textit{Semantic Performance Tag} panels over immutable dialogue. The plan contains an initial state for both characters followed by sparse semantic beats anchored to dialogue.
 
-The initial state specifies, for each character, an open-language acting interpretation, a visible affect state with intensity, a persistent attention target, and an optional persistent head state. A semantic beat records a meaningful executable change for one actor at a dialogue-word anchor. Each emitted beat contains a concise acting interpretation together with at least one changed executable channel---affect, attention, head, or blink. Acting-only interpretations are omitted because they do not correspond to an authorable executable change in the current prototype. When several semantic channels change at the same meaningful moment for the same actor, they are represented within the same beat rather than split into redundant events. Because the proposal is conversation-level, a listener beat may be anchored to the earliest semantically sufficient cue in another character's utterance rather than waiting for a turn boundary.
+Each initial state specifies open-language acting, visible affect and intensity, persistent attention, and optional head state. A semantic beat records a meaningful executable change for one actor at a dialogue-word anchor, combining an acting interpretation with at least one changed channel---affect, attention, head, or blink. Acting-only beats are omitted because they have no executable effect in the current prototype, and simultaneous changes for the same actor are grouped within one beat. Listener beats may be anchored to the earliest semantically sufficient cue in another character's utterance rather than waiting for a turn boundary.
 
-At the semantic level, attention distinguishes persistent focus from a brief check. Persistent focus remains active until a later attention change, whereas a brief check temporarily redirects gaze before returning to the prior persistent target. Targets may be either interlocutor, a non-animated person, a physical object or location, or one of a small set of directional aversions. Directional choices are used as context-dependent acting priors for internal attention or social avoidance rather than fixed psychological codes. Geometric look-at coordinates are not part of the Semantic Performance Tag representation and are resolved only during deterministic execution. This separation is deliberate: a semantic target such as the interlocutor remains stable across shots, while its visual realization may need to change with camera angle, staging, and character rig. The animator can therefore preserve the intended attention relationship while calibrating a gaze pose that remains visually readable in the current shot.
+Attention distinguishes persistent focus from a brief check. Persistent focus remains active until changed; a brief check temporarily redirects gaze before returning to the prior target. Targets may be either interlocutor, another person, an object/location, or a supported directional aversion. Directional choices are context-dependent acting priors rather than fixed psychological codes. Geometric look-at coordinates are deliberately excluded from the semantic representation and resolved only during deterministic execution, allowing one semantic attention relationship to be recalibrated across camera views, staging arrangements, or rigs.
 
-Visible affect uses a closed executable vocabulary corresponding to supported JALI states, with an explicit intensity, whereas the acting interpretation remains open natural language. This separation lets the model describe a nuanced acting idea without requiring every description to map one-to-one onto an executable facial label. Head and blink are optional supporting channels rather than mandatory components of every beat.
+Visible affect uses a closed executable JALI vocabulary with explicit intensity, while the acting interpretation remains open language; head and blink are optional supporting channels. Table~\ref{tab:semantic-performance-tags} summarizes the representation.
 
 \begin{table}[t]
     \centering
@@ -97,21 +79,21 @@ Visible affect uses a closed executable vocabulary corresponding to supported JA
 
         Semantic beat &
         actor, dialogue-word anchor, acting &
-        Marks a meaningful character-specific change while retaining a shared conversational context. \\
+        Marks a meaningful character-specific change while retaining shared context. \\
 
         Affect change &
         state, intensity &
-        Changes the visible executable affect only when the performance meaningfully shifts. \\
+        Changes visible affect only when the performance meaningfully shifts. \\
 
         Attention change &
         persistent focus or brief check, semantic target &
-        Represents persistent social attention, temporary checks, object/person attention, or directional aversion. \\
+        Represents persistent attention, temporary checks, or directional aversion. \\
 
         Supporting behavior &
         optional head, blink &
-        Adds executable supporting behavior when required by the acting beat. \\
+        Adds executable supporting behavior when required by the beat. \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-The Semantic Performance Tag representation is intentionally sparse: the absence of a channel in a beat means that the corresponding semantic state does not change. It is not intended to replace visual authoring or to imply that facial behaviors are perceptually independent. Instead, it provides a semantic surface for identifying \textit{what} the animator wishes to change while leaving temporal realization, rig coordinates, and curve generation to the deterministic execution layer. This separation allows the LLM to propose a shared conversational interpretation, the animator to revise that interpretation at an authorable semantic level, and JALI and Maya to realize the current edited semantic proposal as animation.
+The representation is intentionally sparse: an absent channel means its semantic state does not change. It does not replace visual authoring or imply perceptual independence among facial behaviors. Instead, it exposes \textit{what} the animator wishes to change while leaving timing, rig coordinates, and curve generation to deterministic execution.
