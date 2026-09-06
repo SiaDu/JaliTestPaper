@@ -1,7 +1,97 @@
-\section{Conclusion}
+\section{Results}
 
-We presented a context-aware authoring workflow that exposes an AI-proposed shared dyadic interpretation through editable Semantic Performance Tags between narrative interpretation and procedural character animation. A pretrained LLM proposes initial performance states for both interlocutors and sparse dialogue-anchored semantic changes, while the animator can inspect and revise one or multiple executable decisions across either character, including affect, attention, head behavior, and performative blink before deterministic compilation of the current canonical plan to JALI and Maya. The representation separates semantic acting decisions from shot- and rig-dependent execution, including calibrated realization of semantic gaze targets.
+\subsection{Study A: Authoring Workflow}
 
-\textbf{[After completing the studies, insert one sentence summarizing the principal Study~B context result and one sentence summarizing the principal Study~A authoring result. Do not state that the Semantic Performance Tag representation improves appropriateness, control, workload, efficiency, or authorship unless supported by the data.]}
+Editable Semantic Performance Tags produced numerically higher final-performance ratings, but the differences were not statistically reliable in this sample. Mean match to the participant's intended reading increased from $5.10$ ($SD=0.97$) with Direct Generation to $5.65$ ($SD=0.82$) with editable tags ($W=9.0$, $p=.117$, Holm-adjusted $p=.219$, $r_{rb}=.60$). Final-performance satisfaction similarly increased from $5.15$ ($SD=1.06$) to $5.75$ ($SD=0.89$; $W=4.0$, $p=.109$, Holm-adjusted $p=.219$, $r_{rb}=.71$). Figure~\ref{fig:study-a-task} summarizes these task-level outcomes.
 
-The broader question is not whether an AI system can generate a plausible facial performance in one step, but how a creator can inspect and negotiate the interpretation that produced it. Our evaluation is designed to test whether making that interpretive layer explicit provides a useful level of control for conversational character animation while preserving deterministic production execution.
+\begin{figure}[t]
+    \centering
+    \input{figures/user_study/fig_studya_task_outcomes.tex}
+    \caption{Study~A final-performance ratings. Bars show participant-level means with standard-deviation error bars for the ten usable participant records.}
+    \Description{Grouped bars compare Direct Generation and Editable Semantic Performance Tags for match to intended reading and final satisfaction.}
+    \label{fig:study-a-task}
+\end{figure}
+
+Across the nine workflow items, the largest directional difference concerned revision clarity: Direct Generation $M=4.89$ ($SD=1.54$) versus editable tags $M=6.22$ ($SD=0.67$), $W=0$, $p=.063$, Holm-adjusted $p=.563$, $r_{rb}=1.00$ ($n=9$ paired responses). Dyadic coordination also increased directionally from $M=5.00$ ($SD=1.49$) to $M=5.80$ ($SD=0.92$), but this difference was not significant ($p=.250$; Holm-adjusted $p=1.00$). No workflow item remained significant after family-wise correction. Figure~\ref{fig:study-a-workflow} shows the descriptive workflow-item profile.
+
+\begin{figure*}[t]
+    \centering
+    \input{figures/user_study/fig_studya_workflow_items.tex}
+    \caption{Study~A workflow-item ratings for Direct Generation and Editable Semantic Performance Tags. Error bars show standard deviations.}
+    \Description{Horizontal grouped bars show nine workflow ratings. Editable tags are numerically higher on several items, with the largest difference for revision clarity.}
+    \label{fig:study-a-workflow}
+\end{figure*}
+
+\begin{table*}[t]
+\centering
+\caption{Study~A workflow-item ratings. Positive $r_{rb}$ favors Editable Semantic Performance Tags. Holm correction is applied across the nine items.}
+\label{tab:workflow-results}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Item & $n$ & Direct $M$ & Tags $M$ & $W$ & $p_{\mathrm{Holm}}$ & $r_{rb}$\\
+\midrule
+Express intended acting direction & 10 & 5.50 & 5.80 & 2.0 & 1.000 & .60\\
+Local revision while preserving choices & 10 & 5.00 & 5.50 & 13.0 & 1.000 & .28\\
+Understand what was being changed & 9 & 4.89 & 6.22 & 0.0 & .563 & 1.00\\
+Control of final acting direction & 10 & 5.20 & 5.60 & 4.0 & 1.000 & .47\\
+Coordinate speaking/listening behavior & 10 & 5.00 & 5.80 & 2.0 & 1.000 & .73\\
+Move between visual judgment and revision & 9 & 5.22 & 5.00 & 2.5 & 1.000 & -.50\\
+Creative ownership & 9 & 4.78 & 5.33 & 2.5 & 1.000 & .67\\
+Explore alternative performances & 10 & 6.30 & 6.40 & 2.0 & 1.000 & .33\\
+Quality worth time/effort & 8 & 6.13 & 6.13 & 5.0 & 1.000 & .00\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Raw NASA-TLX scores did not show a statistically reliable workload difference between workflows on any dimension after Holm correction. Mental demand was $39.3$ ($SD=18.1$) for Direct Generation and $41.5$ ($SD=19.2$) for editable tags; effort was $37.0$ ($SD=21.6$) and $40.3$ ($SD=24.2$), respectively. The NASA-TLX performance dimension (0=perfect, 100=failure) was numerically higher for editable tags ($M=55.2$) than Direct Generation ($M=43.0$), but the unadjusted comparison did not cross the conventional threshold ($p=.055$; Holm-adjusted $p=.328$). We therefore find no evidence that the editable representation reduced workload in this first-use study. Figure~\ref{fig:study-a-tlx} summarizes the raw NASA-TLX dimensions.
+
+\begin{figure*}[t]
+    \centering
+    \input{figures/user_study/fig_studya_nasa_tlx.tex}
+    \caption{Study~A raw NASA-TLX ratings by workflow. For the performance dimension, 0 denotes perfect performance and 100 denotes failure.}
+    \Description{Grouped bars compare Direct Generation and Editable Semantic Performance Tags across the six raw NASA-TLX dimensions.}
+    \label{fig:study-a-tlx}
+\end{figure*}
+
+The three tag-specific diagnostics were positive but should be read as descriptive. Participants rated the match between Semantic Performance Tags and their desired level of editing at $M=5.00$ ($SD=1.05$), the usefulness of phrase-level acting interpretation at $M=5.30$ ($SD=1.34$), and the dual-character layout for coordinating speaker and listener performance at $M=6.20$ ($SD=0.63$).
+
+\subsection{Study B: Context Ablation}
+
+Full-Context proposals received higher overall scene-fit ratings than Dialogue-Only proposals. Participant-level means increased from $5.22$ ($SD=0.90$) to $5.58$ ($SD=1.02$), with all non-zero participant differences favoring Full-Context ($W=0$, $p=.0078$, Holm-adjusted $p=.039$, $r_{rb}=1.00$). This was the only criterion that remained significant after Holm correction. Intention ($5.20$ vs. $5.43$), affect ($5.05$ vs. $5.08$), attention/gaze ($5.42$ vs. $5.48$), and temporal placement ($5.45$ vs. $5.59$) did not show corrected significant differences (Table~\ref{tab:context-results}). Thus, in the tested setup, added context changed the holistic appropriateness of a proposed performance more clearly than any single exposed semantic channel.
+
+\begin{figure*}[t]
+    \centering
+    \input{figures/user_study/fig_studyb_context_ablation.tex}
+    \caption{Study~B participant-level ratings for Dialogue-Only and Full-Context proposals across five appropriateness criteria. Error bars show standard deviations.}
+    \Description{Grouped bars show higher Full-Context means on all five criteria, with the clearest difference in overall scene fit.}
+    \label{fig:study-b-context}
+\end{figure*}
+
+\begin{table}[t]
+\centering
+\caption{Study~B participant-level ratings for Dialogue-Only (D) and Full-Context (F) proposals. Holm correction is across the five criteria.}
+\label{tab:context-results}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Criterion & D $M$ & F $M$ & $p_{\mathrm{Holm}}$ & $r_{rb}$\\
+\midrule
+Overall scene fit & 5.22 & 5.58 & .039 & 1.00\\
+Character intentions & 5.20 & 5.43 & 1.000 & .38\\
+Facial affect & 5.05 & 5.08 & 1.000 & .19\\
+Attention/gaze & 5.42 & 5.48 & 1.000 & .21\\
+Change timing & 5.45 & 5.59 & .375 & .86\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across 60 scene-level preference questions, Full-Context was selected 27 times, Dialogue-Only 15 times, and ``No preference'' 11 times; six responses were missing and one response was ambiguous. Among the 42 determinate choices for one of the two proposals, Full-Context therefore accounted for 64.3\%. We treat this as descriptive support for the appropriateness result rather than as an independent inferential test. Figure~\ref{fig:study-b-preference} shows the observed preference counts.
+
+\begin{figure}[t]
+    \centering
+    \input{figures/user_study/fig_studyb_preferences.tex}
+    \caption{Study~B starting-plan preference counts. Missing and ambiguous responses are excluded from the plotted three-category count but retained in the reported totals.}
+    \Description{Bars show more Full-Context than Dialogue-Only starting-plan choices, with a third bar for no preference.}
+    \label{fig:study-b-preference}
+\end{figure}
